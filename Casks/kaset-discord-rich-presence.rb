@@ -1,6 +1,6 @@
 cask "kaset-discord-rich-presence" do
-  version "main"
-  sha256 "c5c1f970d70dfb5966c3371b35b69602ff47e84b5189daf2db6348e1c8d7a4be"
+  version "1.0.0"
+  sha256 "611c31132ca6a8aab36dbcec6f36f3749b12ca1682706db64a7be7494cf68172"
 
   url "https://github.com/codejota/kaset-discord-rich-presence/releases/download/v#{version}/kaset-v#{version}.dmg"
   name "Kaset Discord Rich Presence"
