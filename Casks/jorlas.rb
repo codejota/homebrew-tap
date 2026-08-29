@@ -1,6 +1,6 @@
 cask "jorlas" do
   version "0.4.17"
-  sha256 :no_check
+  sha256 "ecd8be92c89a4f84c7142838ad625e70e3174bbebcfb3387c6d3a09118fc2526"
 
   github_token = ENV["HOMEBREW_GITHUB_API_TOKEN"].to_s.strip
   if github_token.empty?
