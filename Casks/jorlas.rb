@@ -2,7 +2,7 @@ require "digest"
 require "fileutils"
 
 cask "jorlas" do
-  version "0.4.20"
+  version "0.4.21"
   sha256 "71b88e8773d580f745a02fb0052fec9783043ca814d6d7b8dcc9e69c6b7a8307"
 
   url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas.txt"
@@ -35,7 +35,7 @@ cask "jorlas" do
     raise "Could not download the private Jorlas release. Confirm that gh is logged in as an account with access to codejota/jorlas." unless ok && dmg.exist?
 
     actual_sha = Digest::SHA256.file(dmg).hexdigest
-    expected_sha = "477eda38fed20d499e56da7e65dd6c240b7b37659eb7f4e240f5c071e3d2e2fd"
+    expected_sha = "ab54d5d286a4f8e4fd46af883fdc5f03774dc505e7e45d9b52866c19b0341355"
     raise "Jorlas DMG checksum mismatch." unless actual_sha == expected_sha
 
     mount = staged_path/"jorlas-private-release"
