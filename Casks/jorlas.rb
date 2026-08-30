@@ -1,11 +1,8 @@
-require "digest"
-require "fileutils"
-
 cask "jorlas" do
-  version "0.4.23"
-  sha256 "71b88e8773d580f745a02fb0052fec9783043ca814d6d7b8dcc9e69c6b7a8307"
+  version "0.4.28"
+  sha256 "24dbdf4985b48dbb9af805dcf2d4386f62ddc9cb4fb64863dd9a3f69ec9d41df"
 
-  url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas.txt"
+  url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas-0.4.28-installer.tar.gz"
   name "Jorlas"
   desc "Native macOS control desk and menu bar toolkit"
   homepage "https://github.com/codejota/jorlas"
@@ -13,57 +10,12 @@ cask "jorlas" do
   depends_on formula: "gh"
   depends_on macos: :sonoma
 
-  container type: :naked
+  installer script: {
+    executable: "install.sh",
+  }
 
-  preflight do
-    gh = ["/opt/homebrew/bin/gh", "/usr/local/bin/gh", "/usr/bin/gh"].find { |path| File.executable?(path) }
-    raise "GitHub CLI is required to install private Jorlas releases." unless gh
-
-    unless system(gh, "auth", "status", "--hostname", "github.com", out: File::NULL, err: File::NULL)
-      raise "Jorlas is private. Run: gh auth login"
-    end
-
-    dmg = staged_path/"Jorlas-#{version}.dmg"
-    FileUtils.rm_f(dmg)
-    ok = system(
-      gh,
-      "release", "download", "v#{version}",
-      "--repo", "codejota/jorlas",
-      "--pattern", "Jorlas-#{version}.dmg",
-      "--output", dmg.to_s,
-    )
-    raise "Could not download the private Jorlas release. Confirm that gh is logged in as an account with access to codejota/jorlas." unless ok && dmg.exist?
-
-    actual_sha = Digest::SHA256.file(dmg).hexdigest
-    expected_sha = "a59898c742a9fd7f640aed17a9932f123755e4ec368f416bb9a475193ef02611"
-    raise "Jorlas DMG checksum mismatch." unless actual_sha == expected_sha
-
-    mount = staged_path/"jorlas-private-release"
-    FileUtils.rm_rf(mount)
-    FileUtils.mkdir_p(mount)
-
-    begin
-      attached = system(
-        "/usr/bin/hdiutil", "attach", dmg.to_s,
-        "-nobrowse", "-readonly", "-mountpoint", mount.to_s,
-        out: File::NULL,
-      )
-      raise "Could not mount the Jorlas DMG." unless attached
-
-      source_app = mount/"Jorlas.app"
-      raise "Jorlas.app was not found inside the private release DMG." unless source_app.exist?
-      FileUtils.rm_rf(staged_path/"Jorlas.app")
-      FileUtils.cp_r(source_app, staged_path/"Jorlas.app", preserve: true)
-    ensure
-      system("/usr/bin/hdiutil", "detach", mount.to_s, "-quiet") if mount.exist?
-      FileUtils.rm_rf(mount)
-      FileUtils.rm_f(dmg)
-    end
-  end
-
-  app "Jorlas.app"
-
-  uninstall quit: "com.jorlas.app"
+  uninstall quit: "com.jorlas.app",
+            delete: "/Applications/Jorlas.app"
 
   zap trash: [
     "~/Library/Application Support/com.jorlas.app",
