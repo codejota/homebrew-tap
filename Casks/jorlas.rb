@@ -1,6 +1,6 @@
 cask "jorlas" do
   version "0.4.40"
-  sha256 "10b2a99c88f7aef3fdf200b9dc44b8f01a4012857874f6a513445a02cb6e5e40"
+  sha256 "9b1a9c399d1618ce88a26795e92408d609f913d4e5bf3374f3ff1f22bf36cabd"
 
   url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas-0.4.40-installer.tar.gz"
   name "Jorlas"
