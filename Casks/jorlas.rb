@@ -1,8 +1,8 @@
 cask "jorlas" do
-  version "0.8.22"
-  sha256 "3a51b6a8b3436ec1d001dc63ece60199b8cb238d4ab53535ac920ea8889e212d"
+  version "0.8.24"
+  sha256 "4a1fba21ca0285205793afac6698faffb08a3177c26727175dad7ebddb54d311"
 
-  url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas-0.8.22-installer.tar.gz"
+  url "https://raw.githubusercontent.com/codejota/homebrew-tap/main/bootstrap/jorlas-0.8.24-installer.tar.gz"
   name "Jorlas"
   desc "Native macOS control desk and menu bar toolkit"
   homepage "https://github.com/codejota/jorlas"
